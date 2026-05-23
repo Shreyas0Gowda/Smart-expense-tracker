@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<meta charset="UTF-8">
+<title>Smart Expense Tracker</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    display: flex;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 220px;
+    height: 100vh;
+    background: rgba(0,0,0,0.4);
+    color: white;
+    padding: 20px;
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.sidebar a {
+    display: block;
+    padding: 12px;
+    margin: 10px 0;
+    text-decoration: none;
+    color: white;
+    border-radius: 8px;
+}
+
+.sidebar a:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+/* Main Content */
+.main {
+    flex: 1;
+    padding: 40px;
+}
+
+/* Glass Card */
+.card {
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 25px;
+    width: 350px;
+    color: white;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+}
+
+/* Inputs */
+input, select {
+    width: 90%;
+    padding: 14px 16px;   /* bigger inside space */
+    margin: 12px 0;
+    border-radius: 10px;
+    border: none;
+    font-size: 15px;
+}
+input, select {
+    height: 45px;
+}
+input:focus, select:focus {
+    outline: none;
+    box-shadow: 0 0 5px #00c6ff;
+}
+/* Button */
+button {
+    width:97%;
+    padding: 12px;
+    background: #00c6ff;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+}
+button {
+    height: 45px;
+    font-size: 15px;
+}
+
+button:hover {
+    background: #0072ff;
+}
+
+/* Title */
+.title {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+.dashboard {
+    display: flex;
+    gap: 50px;
+    align-items: flex-start;
+}
+.form-card {
+    width: 500px;
+    padding: 30px;
+    height: 400px;
+   
+}
+.chart-card {
+    width: 500px;
+    height: 410px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+canvas {
+    max-width: 100%;
+    max-height: 300px;
+}
+.card h3 {
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <h2>💰 Tracker</h2>
+    <a href="#">Dashboard</a>
+    <a href="#">Add Expense</a>
+    
+</div>
+
+<!-- Main Content -->
+<div class="main">
+
+    <div class="title">Smart Expense Tracker</div>
+
+    <div class="dashboard">
+
+        <!-- LEFT: FORM -->
+        <div class="card form-card">
+            <h3>Add Expense</h3>
+
+            <form action="addExpense" method="post">
+                <input type="number" name="amount" placeholder="Enter Amount" required>
+
+                <select name="category">
+    <option value="Food">Food</option>
+    <option value="Shopping">Shopping</option>
+    <option value="Travel">Travel</option>
+    <option value="Medicine">Medicine</option>
+    <option value="Entertainment">Entertainment</option>
+    <option value="Bills">Bills</option>
+    <option value="Others">Others</option>
+</select>
+
+                <input type="text" name="description" placeholder="Description">
+
+                <button type="submit">Add Expense</button>
+            </form>
+        </div>
+
+        <!-- RIGHT: CHART -->
+        <div class="card chart-card">
+            <h3>Expense Analytics</h3>
+            <canvas id="expenseChart"></canvas>
+        </div>
+
+    </div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+const ctx = document.getElementById('expenseChart');
+
+new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: ['Food', 'Travel', 'Shopping', 'Other'],
+        datasets: [{
+            data: [500, 300, 200, 100],
+            backgroundColor: [
+                '#ff6384',
+                '#36a2eb',
+                '#ffce56',
+                '#4bc0c0'
+            ]
+        }]
+    },
+    options: {
+        responsive: true
+    }
+});
+</script>
+</body>
+</html>
