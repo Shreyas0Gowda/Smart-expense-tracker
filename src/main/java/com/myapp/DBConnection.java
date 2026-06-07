@@ -12,9 +12,9 @@ public class DBConnection {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             con = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/expense_db",
+                "jdbc:mysql://acela.proxy.rlwy.net:22079/railway",
                 "root",
-                "Fragger@55cs"
+                "UcJoPKcstuNaWKxdwughmJtwiaZRmhia"
             );
 
         } catch (Exception e) {

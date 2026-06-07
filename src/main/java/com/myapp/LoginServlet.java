@@ -16,11 +16,16 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         try {
-            Connection con = DBConnection.getConnection();
+        	Connection con = DBConnection.getConnection();
 
-            PreparedStatement ps = con.prepareStatement(
-                "SELECT * FROM users WHERE username=? AND password=?"
-            );
+        	if (con == null) {
+        	    response.getWriter().println("Database connection failed");
+        	    return;
+        	}
+
+        	PreparedStatement ps = con.prepareStatement(
+        	    "SELECT * FROM users WHERE username=? AND password=?"
+        	);
 
             ps.setString(1, username);
             ps.setString(2, password);
